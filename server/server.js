@@ -29,8 +29,8 @@ io.on('connection', (socket) => {
     users.addUser(socket.id, params.name, params.room);
 
     io.to(params.room).emit('updateUserList', users.getUserList(params.room));
-    socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
-    socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has joined.`));
+    socket.emit('newMessage', generateMessage('Admin', `Witaj na czacie o nazwie : ${params.room}`));
+    socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `Użytkownik : ${params.name} dołączył do czatu.`));
     callback();
   });
 
@@ -48,7 +48,7 @@ io.on('connection', (socket) => {
     var user = users.getUser(socket.id);
 
     if (user) {
-      io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude));  
+      io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude));
     }
   });
 
